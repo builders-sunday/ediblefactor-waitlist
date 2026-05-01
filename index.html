@@ -383,11 +383,58 @@
     .reveal, .hero__title .word { opacity: 1 !important; transform: none !important; }
   }
 
-  /* Mobile */
+  /* Mobile · tablet-and-down — keeps deck legible, marquee tighter */
   @media (max-width: 900px) {
     .deck-stage { width: 240px; height: 500px; }
     .deck-text-stage { min-height: 220px; }
     .marquee__track { font-size: 22px; gap: 36px; }
+  }
+
+  /* Mobile · phone-and-down — aggressively scales display type so the page
+   * doesn't feel like a billboard on a 360-420px screen. Targets the actual
+   * cap-height-driving classes (Tailwind text-Nxl utilities can't be touched
+   * from a stylesheet, so we override via the parent of the visible text). */
+  @media (max-width: 640px) {
+    /* Hero title: floor was 64px which is too large at 360px viewport */
+    .hero__title { font-size: clamp(44px, 13vw, 84px) !important; }
+    /* Section h2s ("You've always had to choose.", "Two budgets, one plate.",
+       "Numbers that mean something.") — were 5xl/6xl/7xl */
+    section h2.display { font-size: clamp(32px, 9vw, 44px) !important; line-height: 1.02 !important; }
+    /* CTA card heading "Skip the problem · Join the waitlist" — was 3xl/2.4rem */
+    .wl-form { padding: 4px 4px 4px 16px; }
+    .wl-form input[type=email] { font-size: 13px; padding: 10px 0; }
+    .wl-form button[type=submit] { padding: 12px 18px; font-size: 10px; }
+    /* Friction cards display text */
+    .friction p.display { font-size: 1.05rem !important; line-height: 1.25 !important; }
+    .friction { padding: 22px 20px; }
+    /* Tracker columns */
+    .tracker__col { padding: 22px; }
+    .tracker__col h3.display { font-size: 1.75rem !important; }
+    .tracker__col .display.text-5xl { font-size: 2rem !important; }
+    /* Metric cards */
+    .metric-card { padding: 22px; }
+    .metric-card .display.text-6xl { font-size: 2.5rem !important; }
+    /* Walkthrough chapter headings */
+    .deck-chapter h3.display { font-size: 2rem !important; line-height: 1.05 !important; }
+    /* Footer giant wordmark — clip more on mobile so it doesn't visually leak */
+    footer .display { font-size: clamp(80px, 22vw, 160px) !important; }
+    /* Hero stats: single row, evenly distributed, centered */
+    .hero-stats { gap: 14px !important; padding-top: 20px; }
+    .hero-stats__item { flex: 1 1 0; min-width: 0; }
+    .hero-stats__item .display { font-size: 1.5rem !important; line-height: 1; }
+    .hero-stats__label { font-size: 9px !important; letter-spacing: 0.12em !important; }
+    /* Hero pad: reduce top spacing so the title hits sooner */
+    section.bg-grid { padding-top: 84px; }
+  }
+
+  /* Mobile · very narrow (≤380px iPhone SE / mini) — last squeeze */
+  @media (max-width: 380px) {
+    .hero__title { font-size: clamp(38px, 12vw, 60px) !important; }
+    section h2.display { font-size: 28px !important; }
+    .friction p.display { font-size: 0.98rem !important; }
+    .hero-stats { gap: 10px !important; }
+    .hero-stats__item .display { font-size: 1.25rem !important; }
+    .hero-stats__label { font-size: 8.5px !important; }
   }
 
   /* === Floating arrow indicator (between sections) === */
@@ -544,19 +591,19 @@
       </div>
     </div>
 
-    <!-- Hero meta stats -->
-    <div class="reveal mt-8 md:mt-10 flex flex-wrap gap-8 md:gap-14 pt-6 border-t border-white/5">
-      <div>
-        <div class="display text-3xl md:text-4xl text-ink">02</div>
-        <div class="mono text-[11px] tracking-[0.16em] uppercase text-inkdim mt-1">Budgets, one app</div>
+    <!-- Hero meta stats — single row on mobile, centered, smaller -->
+    <div class="hero-stats reveal mt-8 md:mt-10 flex flex-nowrap justify-center md:justify-start gap-4 md:gap-14 pt-6 border-t border-white/5">
+      <div class="hero-stats__item text-center md:text-left">
+        <div class="display text-2xl md:text-4xl text-ink">02</div>
+        <div class="hero-stats__label mono text-[10px] md:text-[11px] tracking-[0.16em] uppercase text-inkdim mt-1">Budgets, one app</div>
       </div>
-      <div>
-        <div class="display text-3xl md:text-4xl text-ink">100<span class="text-periwinkle">+</span></div>
-        <div class="mono text-[11px] tracking-[0.16em] uppercase text-inkdim mt-1">Cuisines recognized</div>
+      <div class="hero-stats__item text-center md:text-left">
+        <div class="display text-2xl md:text-4xl text-ink">100<span class="text-periwinkle">+</span></div>
+        <div class="hero-stats__label mono text-[10px] md:text-[11px] tracking-[0.16em] uppercase text-inkdim mt-1">Cuisines<span class="hidden md:inline"> recognized</span></div>
       </div>
-      <div>
-        <div class="display text-3xl md:text-4xl text-ink">12</div>
-        <div class="mono text-[11px] tracking-[0.16em] uppercase text-inkdim mt-1">Languages scanned</div>
+      <div class="hero-stats__item text-center md:text-left">
+        <div class="display text-2xl md:text-4xl text-ink">12</div>
+        <div class="hero-stats__label mono text-[10px] md:text-[11px] tracking-[0.16em] uppercase text-inkdim mt-1">Languages<span class="hidden md:inline"> scanned</span></div>
       </div>
     </div>
   </div>
