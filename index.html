@@ -411,13 +411,32 @@
     .tracker__col { padding: 22px; }
     .tracker__col h3.display { font-size: 1.75rem !important; }
     .tracker__col .display.text-5xl { font-size: 2rem !important; }
-    /* Metric cards */
-    .metric-card { padding: 22px; }
-    .metric-card .display.text-6xl { font-size: 2.5rem !important; }
+    /* Metric cards — overall smaller footprint on mobile so the page doesn't
+       eat 3 full screens at the bottom. Tighter padding, smaller %, smaller
+       icon + label, more compressed gap between elements. */
+    .metric-card { padding: 16px 18px; }
+    .metric-card > .flex { margin-bottom: -4px; }
+    .metric-card > .flex .w-10 { width: 32px !important; height: 32px !important; }
+    .metric-card .mono.uppercase { font-size: 10px !important; margin-top: 14px !important; }
+    .metric-card .display.text-6xl { font-size: 1.9rem !important; margin-top: 4px !important; }
+    .metric-card p.text-sm { font-size: 12px !important; line-height: 1.45 !important; margin-top: 10px !important; }
+    /* The metric grid had gap-5 (20px) — feels generous on mobile */
+    section .grid.gap-5 { gap: 12px !important; }
     /* Walkthrough chapter headings */
     .deck-chapter h3.display { font-size: 2rem !important; line-height: 1.05 !important; }
-    /* Footer giant wordmark — clip more on mobile so it doesn't visually leak */
-    footer .display { font-size: clamp(80px, 22vw, 160px) !important; }
+    /* Footer giant wordmark — was decoratively huge (22vw); on mobile it
+       was overlapping the footer nav + sticky CTA pill. Hide entirely below
+       640px since the visible "ediblefactor" inside the footer flex row is
+       already a strong wordmark. */
+    footer > .display.absolute { display: none !important; }
+    footer { padding-top: 28px; padding-bottom: 28px; }
+    footer .relative.flex { gap: 14px !important; }
+    /* Sticky CTA: nudge in from the right edge a bit + add safe-area inset */
+    .sticky-cta { right: 14px !important; bottom: max(16px, env(safe-area-inset-bottom)) !important; }
+    /* Body padding-bottom so footer content isn't obscured by the floating
+       sticky CTA when scrolled all the way down */
+    body { padding-bottom: 0 !important; }
+    footer { padding-bottom: 80px !important; /* room for sticky-cta */ }
     /* Hero stats: single row, evenly distributed, centered */
     .hero-stats { gap: 14px !important; padding-top: 20px; }
     .hero-stats__item { flex: 1 1 0; min-width: 0; }
@@ -435,6 +454,11 @@
     .hero-stats { gap: 10px !important; }
     .hero-stats__item .display { font-size: 1.25rem !important; }
     .hero-stats__label { font-size: 8.5px !important; }
+    /* Metric cards — even tighter at iPhone-SE width */
+    .metric-card { padding: 14px 16px; }
+    .metric-card .display.text-6xl { font-size: 1.7rem !important; }
+    .metric-card .mono.uppercase { font-size: 9.5px !important; }
+    .metric-card p.text-sm { font-size: 11.5px !important; }
   }
 
   /* === Floating arrow indicator (between sections) === */
