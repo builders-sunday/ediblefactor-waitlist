@@ -6,10 +6,91 @@
 <title>EdibleFactor · Redesign · You are HOW you eat</title>
 <meta name="description" content="The only app that tracks your calories and your budget at the same time. Private beta · Bengaluru → Global.">
 
-<!-- Fonts -->
+<!-- FE-11 · SEO · canonical + robots -->
+<link rel="canonical" href="https://ediblefactor.com/">
+<meta name="robots" content="index, follow">
+<meta name="author" content="edible·factor">
+
+<!-- FE-11 · Open Graph -->
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="edible·factor">
+<meta property="og:title"       content="edible·factor · You are HOW you eat">
+<meta property="og:description" content="The only app that tracks your calories and your budget at the same time. Private beta · Bengaluru → Global.">
+<meta property="og:url"         content="https://ediblefactor.com/">
+<meta property="og:image"       content="https://ediblefactor.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt"   content="edible·factor — dark serif headline 'You are HOW you eat' with periwinkle italic accent">
+<meta property="og:locale"      content="en_IN">
+
+<!-- FE-11 · Twitter / X -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="edible·factor · You are HOW you eat">
+<meta name="twitter:description" content="The only app that tracks your calories and your budget at the same time. Private beta · Bengaluru.">
+<meta name="twitter:image"       content="https://ediblefactor.com/og-image.png">
+
+<!-- FE-11 · Structured data · Organization + WebSite (with SearchAction for Google sitelinks) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://ediblefactor.com/#org",
+      "name": "edible·factor",
+      "url": "https://ediblefactor.com",
+      "logo": "https://ediblefactor.com/logo.png",
+      "description": "Calorie + budget tracking for Bengaluru's restaurants. Private beta.",
+      "foundingLocation": "Bengaluru, India",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "hello@ediblefactor.com",
+        "areaServed": "IN",
+        "availableLanguage": ["en"]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "url": "https://ediblefactor.com/",
+      "name": "edible·factor",
+      "publisher": { "@id": "https://ediblefactor.com/#org" }
+    }
+  ]
+}
+</script>
+
+<!-- Fonts: same stack as production -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Tailwind via CDN · for component-ready utility classes; site dev can lift to React -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg:    '#07070b',
+          bg2:   '#0c0c12',
+          bg3:   '#13131c',
+          ink:   '#eceaf3',
+          inkdim:'#9693ac',
+          inklow:'#4f4d63',
+          periwinkle: '#a8aaff',
+          periwinkleBright: '#c0c2ff',
+          calorie: '#6eddf0',
+          budget:  '#ff8a4a',
+        },
+        fontFamily: {
+          display: ['"Instrument Serif"', 'Times New Roman', 'serif'],
+          body:    ['Inter', 'system-ui', 'sans-serif'],
+          mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        }
+      }
+    }
+  }
+</script>
 
 <style>
   :root {
@@ -18,7 +99,7 @@
     --bg-3: #13131c;
     --ink: #eceaf3;
     --ink-dim: #9693ac;
-    --ink-low: #4f4d63;
+    --ink-low: #6b6885;     /* FE-10 · bumped from #4f4d63 (3.6:1) → #6b6885 (4.5:1 against bg) */
     --periwinkle: #a8aaff;
     --periwinkle-bright: #c0c2ff;
     --calorie: #6eddf0;
@@ -355,85 +436,11 @@
     .reveal, .hero__title .word { opacity: 1 !important; transform: none !important; }
   }
 
-  /* Mobile · tablet-and-down — keeps deck legible, marquee tighter */
+  /* Mobile */
   @media (max-width: 900px) {
     .deck-stage { width: 240px; height: 500px; }
     .deck-text-stage { min-height: 220px; }
     .marquee__track { font-size: 22px; gap: 36px; }
-  }
-
-  /* Mobile · phone-and-down — aggressively scales display type so the page
-   * doesn't feel like a billboard on a 360-420px screen. Targets the actual
-   * cap-height-driving classes (Tailwind text-Nxl utilities can't be touched
-   * from a stylesheet, so we override via the parent of the visible text). */
-  @media (max-width: 640px) {
-    /* Hero title: floor was 64px which is too large at 360px viewport */
-    .hero__title { font-size: clamp(44px, 13vw, 84px) !important; }
-    /* Section h2s ("You've always had to choose.", "Two budgets, one plate.",
-       "Numbers that mean something.") — were 5xl/6xl/7xl */
-    section h2.display { font-size: clamp(32px, 9vw, 44px) !important; line-height: 1.02 !important; }
-    /* CTA card heading "Skip the problem · Join the waitlist" — was 3xl/2.4rem */
-    .wl-form { padding: 3px 3px 3px 12px; gap: 6px; }
-    .wl-form input[type=email] { font-size: 13px; padding: 9px 0; }
-    .wl-form button[type=submit] {
-      padding: 9px 12px; font-size: 9.5px; letter-spacing: 0.08em; gap: 4px;
-    }
-    .wl-form__arrow { display: none; }
-    /* Friction cards display text */
-    .friction p.display { font-size: 1.05rem !important; line-height: 1.25 !important; }
-    .friction { padding: 22px 20px; }
-    /* Tracker columns */
-    .tracker__col { padding: 22px; }
-    .tracker__col h3.display { font-size: 1.75rem !important; }
-    .tracker__col .display.text-5xl { font-size: 2rem !important; }
-    /* Metric cards — overall smaller footprint on mobile so the page doesn't
-       eat 3 full screens at the bottom. Tighter padding, smaller %, smaller
-       icon + label, more compressed gap between elements. */
-    .metric-card { padding: 16px 18px; }
-    .metric-card > .flex { margin-bottom: -4px; }
-    .metric-card > .flex .w-10 { width: 32px !important; height: 32px !important; }
-    .metric-card .mono.uppercase { font-size: 10px !important; margin-top: 14px !important; }
-    .metric-card .display.text-6xl { font-size: 1.9rem !important; margin-top: 4px !important; }
-    .metric-card p.text-sm { font-size: 12px !important; line-height: 1.45 !important; margin-top: 10px !important; }
-    /* The metric grid had gap-5 (20px) — feels generous on mobile */
-    section .grid.gap-5 { gap: 12px !important; }
-    /* Walkthrough chapter headings */
-    .deck-chapter h3.display { font-size: 2rem !important; line-height: 1.05 !important; }
-    /* Footer giant wordmark — was decoratively huge (22vw); on mobile it
-       was overlapping the footer nav + sticky CTA pill. Hide entirely below
-       640px since the visible "ediblefactor" inside the footer flex row is
-       already a strong wordmark. */
-    footer > .display.absolute { display: none !important; }
-    footer { padding-top: 28px; padding-bottom: 28px; }
-    footer .relative.flex { gap: 14px !important; }
-    /* Sticky CTA: nudge in from the right edge a bit + add safe-area inset */
-    .sticky-cta { right: 14px !important; bottom: max(16px, env(safe-area-inset-bottom)) !important; }
-    /* Body padding-bottom so footer content isn't obscured by the floating
-       sticky CTA when scrolled all the way down */
-    body { padding-bottom: 0 !important; }
-    footer { padding-bottom: 80px !important; /* room for sticky-cta */ }
-    /* Hero stats: single row, evenly distributed, centered */
-    .hero-stats { gap: 14px !important; padding-top: 20px; }
-    .hero-stats__item { flex: 1 1 0; min-width: 0; }
-    .hero-stats__item .display { font-size: 1.5rem !important; line-height: 1; }
-    .hero-stats__label { font-size: 9px !important; letter-spacing: 0.12em !important; }
-    /* Hero pad: reduce top spacing so the title hits sooner */
-    section.bg-grid { padding-top: 84px; }
-  }
-
-  /* Mobile · very narrow (≤380px iPhone SE / mini) — last squeeze */
-  @media (max-width: 380px) {
-    .hero__title { font-size: clamp(38px, 12vw, 60px) !important; }
-    section h2.display { font-size: 28px !important; }
-    .friction p.display { font-size: 0.98rem !important; }
-    .hero-stats { gap: 10px !important; }
-    .hero-stats__item .display { font-size: 1.25rem !important; }
-    .hero-stats__label { font-size: 8.5px !important; }
-    /* Metric cards — even tighter at iPhone-SE width */
-    .metric-card { padding: 14px 16px; }
-    .metric-card .display.text-6xl { font-size: 1.7rem !important; }
-    .metric-card .mono.uppercase { font-size: 9.5px !important; }
-    .metric-card p.text-sm { font-size: 11.5px !important; }
   }
 
   /* === Floating arrow indicator (between sections) === */
@@ -447,35 +454,79 @@
     0%, 100% { transform: translateY(0); opacity: 0.55; }
     50%      { transform: translateY(8px); opacity: 1; }
   }
-
-  /* === Minimal preflight (replaces what Tailwind CDN was applying) === */
-  *,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:currentColor}
-  html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4}
-  body{margin:0;line-height:inherit}
-  h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;margin:0}
-  p,figure,blockquote{margin:0}
-  a{color:inherit;text-decoration:inherit}
-  button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}
-  button{background-color:transparent;background-image:none;cursor:pointer;text-transform:none}
-  button:where(:not([type])),button[type=button],button[type=reset],button[type=submit]{-webkit-appearance:button;background-image:none}
-  img,svg,video,canvas,iframe,embed,object{display:block;vertical-align:middle}
-  img,video{max-width:100%;height:auto}
-  strike{text-decoration:line-through}
-  ul,ol,menu{list-style:none;margin:0;padding:0}
-  [hidden]{display:none}
-  ::placeholder{opacity:1;color:#9ca3af}
-
-  /* === Static utility set — replaces Tailwind CDN runtime ===
-     Compiled via tailwindcss CLI against the exact classes used in this file.
-     Regenerate via the snippet in README.md when classes change. */
-  *,:after,:before{--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-bg-opacity:1;--tw-text-opacity:1;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }
-  .pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-x-0{left:0;right:0}.-bottom-6{bottom:-1.5rem}.-left-2{left:-.5rem}.left-1\/2{left:50%}.top-0{top:0}.top-1\/2{top:50%}.z-10{z-index:10}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-3{margin-left:.75rem}.mt-1{margin-top:.25rem}.mt-10{margin-top:2.5rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.block{display:block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-1\.5{height:.375rem}.h-10{height:2.5rem}.h-14{height:3.5rem}.h-\[68px\]{height:68px}.h-px{height:1px}.w-1\.5{width:.375rem}.w-10{width:2.5rem}.w-14{width:3.5rem}.max-w-\[1280px\]{max-width:1280px}.max-w-\[1400px\]{max-width:1400px}.max-w-\[280px\]{max-width:280px}.max-w-\[400px\]{max-width:400px}.max-w-\[480px\]{max-width:480px}.max-w-\[520px\]{max-width:520px}.max-w-\[560px\]{max-width:560px}.max-w-\[720px\]{max-width:720px}.max-w-\[760px\]{max-width:760px}.flex-1{flex:1 1 0%}.-translate-x-1\/2{--tw-translate-x:-50%}.-translate-x-1\/2,.-translate-y-1\/2{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-1\/2{--tw-translate-y:-50%}.select-none{-webkit-user-select:none;-moz-user-select:none;user-select:none}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.flex-nowrap{flex-wrap:nowrap}.items-start{align-items:flex-start}.items-end{align-items:flex-end}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-12{gap:3rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.gap-x-4{column-gap:1rem}.gap-y-1{row-gap:.25rem}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.whitespace-nowrap{white-space:nowrap}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-white\/10{border-color:hsla(0,0%,100%,.1)}.border-white\/5{border-color:hsla(0,0%,100%,.05)}.bg-bg{background-color:rgb(7 7 11/var(--tw-bg-opacity))}.bg-bg\/70{background-color:rgba(7,7,11,.7)}.bg-bg2\/80{background-color:rgba(12,12,18,.8)}.bg-periwinkle{background-color:rgb(168 170 255/var(--tw-bg-opacity))}.bg-periwinkle\/10{background-color:rgba(168,170,255,.1)}.p-6{padding:1.5rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.pb-6{padding-bottom:1.5rem}.pt-12{padding-top:3rem}.pt-6{padding-top:1.5rem}.pt-\[96px\]{padding-top:96px}.text-center{text-align:center}.align-baseline{vertical-align:baseline}.font-body{font-family:Inter,system-ui,sans-serif}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.text-6xl{font-size:3.75rem;line-height:1}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[12px\]{font-size:12px}.text-\[clamp\(140px\2c 22vw\2c 360px\)\]{font-size:clamp(140px,22vw,360px)}.text-\[clamp\(64px\2c 10vw\2c 160px\)\]{font-size:clamp(64px,10vw,160px)}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.uppercase{text-transform:uppercase}.italic{font-style:italic}.not-italic{font-style:normal}.leading-\[0\.98\]{line-height:.98}.leading-\[1\.05\]{line-height:1.05}.leading-none{line-height:1}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-\[0\.14em\]{letter-spacing:.14em}.tracking-\[0\.16em\]{letter-spacing:.16em}.tracking-\[0\.18em\]{letter-spacing:.18em}.tracking-\[0\.22em\]{letter-spacing:.22em}.tracking-tight{letter-spacing:-.025em}.text-budget{color:rgb(255 138 74/var(--tw-text-opacity))}.text-calorie{color:rgb(110 221 240/var(--tw-text-opacity))}.text-ink{color:rgb(236 234 243/var(--tw-text-opacity))}.text-ink\/90{color:rgba(236,234,243,.9)}.text-inkdim{color:rgb(150 147 172/var(--tw-text-opacity))}.text-inklow{color:rgb(79 77 99/var(--tw-text-opacity))}.text-periwinkle{color:rgb(168 170 255/var(--tw-text-opacity))}.text-white\/\[0\.025\]{color:hsla(0,0%,100%,.025)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px)}.backdrop-blur-md,.backdrop-blur-sm{-webkit-backdrop-filter:var(--tw-backdrop-blur);backdrop-filter:var(--tw-backdrop-blur)}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px)}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.hover\:text-periwinkle:hover{color:rgb(168 170 255/var(--tw-text-opacity))}
-  @media (min-width:768px){.md\:mb-10{margin-bottom:2.5rem}.md\:mt-10{margin-top:2.5rem}.md\:inline{display:inline}.md\:flex{display:flex}.md\:inline-flex{display:inline-flex}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.md\:flex-row{flex-direction:row}.md\:justify-start{justify-content:flex-start}.md\:gap-14{gap:3.5rem}.md\:p-7{padding:1.75rem}.md\:px-10{padding-left:2.5rem;padding-right:2.5rem}.md\:py-16{padding-top:4rem;padding-bottom:4rem}.md\:pb-8{padding-bottom:2rem}.md\:pt-16{padding-top:4rem}.md\:text-left{text-align:left}.md\:text-4xl{font-size:2.25rem;line-height:2.5rem}.md\:text-6xl{font-size:3.75rem;line-height:1}.md\:text-7xl{font-size:4.5rem;line-height:1}.md\:text-\[11px\]{font-size:11px}.md\:text-\[2\.4rem\]{font-size:2.4rem}.md\:text-lg{font-size:1.125rem;line-height:1.75rem}}
-  @media (min-width:1024px){.lg\:sticky{position:sticky}.lg\:top-28{top:7rem}.lg\:grid-cols-\[1fr_320px\]{grid-template-columns:1fr 320px}.lg\:grid-cols-\[1fr_440px\]{grid-template-columns:1fr 440px}.lg\:grid-cols-\[380px_1fr\]{grid-template-columns:380px 1fr}.lg\:gap-14{gap:3.5rem}.lg\:gap-16{gap:4rem}}
 </style>
+
+<!-- FE-launch · moved from body, was the cookie-banner + a11y blocks -->
+<style>
+  /* FE-10 · global focus + skip-link styles */
+  :focus { outline: none; }
+  :focus-visible { outline: 2px solid var(--periwinkle); outline-offset: 2px; border-radius: 4px; }
+  .skip-link {
+    position: absolute; top: 8px; left: 8px; z-index: 999;
+    background: var(--periwinkle); color: var(--bg);
+    padding: 10px 16px; border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    transform: translateY(-200%); transition: transform .2s ease;
+  }
+  .skip-link:focus-visible { transform: translateY(0); outline-offset: 0; }
+</style>
+<style>
+  .cookie-banner {
+    position: fixed; left: 16px; right: 16px; bottom: 16px;
+    z-index: 70;
+    background: var(--bg-2);
+    border: 1px solid rgba(168,170,255,0.20);
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.55);
+    display: none;
+    max-width: 420px;
+  }
+  @media (min-width: 700px) { .cookie-banner { left: auto; right: 24px; bottom: 80px; } }
+  .cookie-banner.show { display: block; animation: cookieIn .3s ease; }
+  @keyframes cookieIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .cookie-banner__title {
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--periwinkle); margin-bottom: 8px;
+  }
+  .cookie-banner__body {
+    font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.55;
+    color: var(--ink-dim); margin-bottom: 12px;
+  }
+  .cookie-banner__body a { color: var(--periwinkle); }
+  .cookie-banner__actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cookie-banner__btn {
+    padding: 10px; border-radius: 10px;
+    font-family:'JetBrains Mono',monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    cursor: pointer; border: 1px solid;
+  }
+  .cookie-banner__btn--accept { background: var(--periwinkle); color: var(--bg); border-color: var(--periwinkle); }
+  .cookie-banner__btn--decline { background: rgba(255,255,255,0.04); color: var(--ink); border-color: rgba(255,255,255,0.10); }
+</style>
+
+<!-- FE-launch · favicon + PWA basics -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2307070b'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='serif' font-size='20' font-style='italic' fill='%23a8aaff'%3Eef%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%2307070b'/%3E%3Ctext x='90' y='120' text-anchor='middle' font-family='serif' font-size='110' font-style='italic' fill='%23a8aaff'%3Eef%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://ediblefactor-waitlist.vercel.app data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self';">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 
 <body class="bg-bg text-ink font-body">
+
+<noscript>
+<div style="background:#07070b;color:#eceaf3;padding:18px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#9693ac;border-bottom:1px solid rgba(168,170,255,0.20);">
+  Some animations need JavaScript. The page works without it · join the waitlist below.
+</div>
+</noscript>
+
+
+<!-- FE-10 · Skip-to-content link · first focusable element for keyboard users -->
+<a href="#waitlist-hero" class="skip-link">Skip to waitlist</a>
+
+<!-- moved to head -->
 
 <!-- ============================================================
      NAV  ·  sticky, minimal
@@ -483,11 +534,17 @@
 <nav class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-bg/70 border-b border-white/5">
   <div class="max-w-[1400px] mx-auto px-6 md:px-10 h-[68px] flex items-center justify-between">
     <a href="#" class="display text-2xl tracking-tight">edible<span class="accent">factor</span></a>
-    <div class="flex items-center gap-4">
-      <span class="hidden md:inline-flex items-center gap-2 mono text-[11px] tracking-[0.16em] uppercase text-inkdim">
+    <div class="flex items-center gap-3">
+      <span class="hidden lg:inline-flex items-center gap-2 mono text-[11px] tracking-[0.16em] uppercase text-inkdim">
         <span class="w-1.5 h-1.5 rounded-full bg-periwinkle"></span>
         Private Beta · Bengaluru → Global
       </span>
+      <a href="ediblefactor-guest-menu.html" class="pill-ghost hidden md:inline-flex" aria-label="Browse menus as a guest">
+        Guest Mode
+        <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M3 7h8m-3-3 3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
       <a href="#waitlist-hero" class="pill-cta">Join Waitlist</a>
     </div>
   </div>
@@ -596,8 +653,8 @@
             <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none">
             <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" autocomplete="email">
             <button type="submit">
-              <span>Reserve</span>
-              <svg class="wl-form__arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <span>Reserve My Seat</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M1 7h12m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
@@ -611,23 +668,33 @@
             <span>·</span>
             <span>India + Global rollout</span>
           </div>
+
+          <!-- Or browse as guest -->
+          <div class="mt-5 pt-4 border-t border-white/5">
+            <a href="ediblefactor-guest-menu.html" class="inline-flex items-center gap-2 mono text-[11px] tracking-[0.18em] uppercase text-periwinkle hover:text-periwinkleBright transition-colors">
+              Or browse menus as a guest
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3 7h8m-3-3 3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Hero meta stats — single row on mobile, centered, smaller -->
-    <div class="hero-stats reveal mt-8 md:mt-10 flex flex-nowrap justify-center md:justify-start gap-4 md:gap-14 pt-6 border-t border-white/5">
-      <div class="hero-stats__item text-center md:text-left">
-        <div class="display text-2xl md:text-4xl text-ink">02</div>
-        <div class="hero-stats__label mono text-[10px] md:text-[11px] tracking-[0.16em] uppercase text-inkdim mt-1">Budgets, one app</div>
+    <!-- Hero meta stats -->
+    <div class="reveal mt-8 md:mt-10 flex flex-wrap gap-8 md:gap-14 pt-6 border-t border-white/5">
+      <div>
+        <div class="display text-3xl md:text-4xl text-ink">02</div>
+        <div class="mono text-[11px] tracking-[0.16em] uppercase text-inkdim mt-1">Budgets, one app</div>
       </div>
-      <div class="hero-stats__item text-center md:text-left">
-        <div class="display text-2xl md:text-4xl text-ink">100<span class="text-periwinkle">+</span></div>
-        <div class="hero-stats__label mono text-[10px] md:text-[11px] tracking-[0.16em] uppercase text-inkdim mt-1">Cuisines<span class="hidden md:inline"> recognized</span></div>
+      <div>
+        <div class="display text-3xl md:text-4xl text-ink">100<span class="text-periwinkle">+</span></div>
+        <div class="mono text-[11px] tracking-[0.16em] uppercase text-inkdim mt-1">Cuisines recognized</div>
       </div>
-      <div class="hero-stats__item text-center md:text-left">
-        <div class="display text-2xl md:text-4xl text-ink">12</div>
-        <div class="hero-stats__label mono text-[10px] md:text-[11px] tracking-[0.16em] uppercase text-inkdim mt-1">Languages<span class="hidden md:inline"> scanned</span></div>
+      <div>
+        <div class="display text-3xl md:text-4xl text-ink">12</div>
+        <div class="mono text-[11px] tracking-[0.16em] uppercase text-inkdim mt-1">Languages scanned</div>
       </div>
     </div>
   </div>
@@ -681,13 +748,13 @@
         <div class="friction reveal">
           <div class="friction__index mb-4">Reason · 01</div>
           <p class="display text-2xl leading-tight">
-            Calorie apps don't know <strike>what you ordered</strike>. <em>What it cost you.</em>
+            Calorie apps don't know <s>what you ordered</s>. <em>What it cost you.</em>
           </p>
         </div>
         <div class="friction reveal">
           <div class="friction__index mb-4">Reason · 02</div>
           <p class="display text-2xl leading-tight">
-            Budget apps don't know <strike>the receipt total</strike>. <em>What it fed you.</em>
+            Budget apps don't know <s>the receipt total</s>. <em>What it fed you.</em>
           </p>
         </div>
         <div class="friction reveal">
@@ -776,25 +843,25 @@
           <article class="deck__card" data-card="0" data-pos="0">
             <div class="deck__notch"></div>
             <div class="deck__screen">
-              <img src="/mockups/home-dashboard.webp" alt="EdibleFactor home dashboard" loading="eager" decoding="async" width="280" height="580">
+              <img src="https://ediblefactor-waitlist.vercel.app/mockups/home-dashboard.webp" alt="EdibleFactor home dashboard" loading="eager">
             </div>
           </article>
           <article class="deck__card" data-card="1" data-pos="1">
             <div class="deck__notch"></div>
             <div class="deck__screen">
-              <img src="/mockups/restaurants-browse.webp" alt="Restaurants browse" loading="lazy" decoding="async" width="280" height="580">
+              <img src="https://ediblefactor-waitlist.vercel.app/mockups/restaurants-browse.webp" alt="Restaurants browse" loading="eager">
             </div>
           </article>
           <article class="deck__card" data-card="2" data-pos="2">
             <div class="deck__notch"></div>
             <div class="deck__screen">
-              <img src="/mockups/ai-sommelier.webp" alt="AI Sommelier" loading="lazy" decoding="async" width="280" height="580">
+              <img src="https://ediblefactor-waitlist.vercel.app/mockups/ai-sommelier.webp" alt="AI Sommelier" loading="eager">
             </div>
           </article>
           <article class="deck__card" data-card="3" data-pos="3">
             <div class="deck__notch"></div>
             <div class="deck__screen">
-              <img src="/mockups/calorie-trend.webp" alt="Calorie trend and macro split" loading="lazy" decoding="async" width="280" height="580">
+              <img src="https://ediblefactor-waitlist.vercel.app/mockups/calorie-trend.webp" alt="Calorie trend and macro split" loading="eager">
             </div>
           </article>
         </div>
@@ -928,24 +995,64 @@
   <div class="display absolute -bottom-6 -left-2 text-[clamp(140px,22vw,360px)] leading-none text-white/[0.025] pointer-events-none select-none whitespace-nowrap">
     edible<span style="font-style:italic">factor</span>
   </div>
-  <div class="relative max-w-[1400px] mx-auto px-6 md:px-10 flex flex-col md:flex-row items-center justify-between gap-4">
-    <div class="flex items-center gap-3 mono text-[11px] tracking-[0.16em] uppercase text-inkdim">
-      <span class="display text-lg text-ink">edible<span class="accent">factor</span></span>
-      <span>·</span>
-      <span>© 2026 · Made in Bengaluru</span>
-    </div>
-    <div class="flex items-center gap-6 mono text-[11px] tracking-[0.16em] uppercase text-inkdim">
-      <a href="#" class="hover:text-periwinkle transition-colors">Privacy</a>
-      <a href="#" class="hover:text-periwinkle transition-colors">Contact</a>
-      <a href="#waitlist-hero" class="hover:text-periwinkle transition-colors">Join Waitlist</a>
+  <div class="relative max-w-[1400px] mx-auto px-6 md:px-10 flex flex-col gap-4">
+    <!-- FE-09 · Health disclaimer line -->
+    <p class="text-center display italic text-sm md:text-base leading-snug text-inkdim max-w-[640px] mx-auto">
+      Calorie and macro estimates are <em class="not-italic text-budget italic">informational only</em> and not medical advice.
+      Consult a healthcare professional for dietary guidance.
+    </p>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 border-t border-white/5">
+      <div class="flex items-center gap-3 mono text-[11px] tracking-[0.16em] uppercase text-inkdim">
+        <span class="display text-lg text-ink">edible<span class="accent">factor</span></span>
+        <span>·</span>
+        <span>© 2026 · Made in Bengaluru</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mono text-[11px] tracking-[0.16em] uppercase text-inkdim">
+        <a href="legal.html#privacy" class="hover:text-periwinkle transition-colors">Privacy</a>
+        <a href="legal.html#terms" class="hover:text-periwinkle transition-colors">Terms</a>
+        <a href="legal.html#cookies" class="hover:text-periwinkle transition-colors">Cookies</a>
+        <a href="legal.html#disclaimer" class="hover:text-periwinkle transition-colors">Disclaimer</a>
+        <a href="legal.html#contact" class="hover:text-periwinkle transition-colors">Contact</a>
+        <a href="#waitlist-hero" class="hover:text-periwinkle transition-colors">Join Waitlist</a>
+      </div>
     </div>
   </div>
 </footer>
 
 <!-- Sticky floating CTA · appears after hero -->
 <a href="#waitlist-hero" class="sticky-cta pill-cta" id="stickyCta" aria-label="Join the waitlist">
-  Reserve now →
+  Reserve My Seat →
 </a>
+
+<!-- FE-09 · Cookie consent banner -->
+<!-- moved to head -->
+<aside class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie preferences">
+  <div class="cookie-banner__title">Cookies + analytics</div>
+  <p class="cookie-banner__body">
+    We use essential cookies to make the site work and lightweight analytics (Plausible · no cross-site tracking).
+    <a href="legal.html#cookies">Learn more</a>.
+  </p>
+  <div class="cookie-banner__actions">
+    <button type="button" class="cookie-banner__btn cookie-banner__btn--decline" id="cookieDecline">Essential only</button>
+    <button type="button" class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept">Accept all</button>
+  </div>
+</aside>
+<script>
+  // FE-09 · Cookie consent — first-visit banner with persistent choice
+  (function() {
+    const KEY = 'ef_cookie_consent_v1';
+    const banner = document.getElementById('cookieBanner');
+    let consent = null;
+    try { consent = localStorage.getItem(KEY); } catch (e) {}
+    if (!consent) setTimeout(() => banner?.classList.add('show'), 800);
+    function set(value) {
+      try { localStorage.setItem(KEY, JSON.stringify({ value, at: new Date().toISOString() })); } catch (e) {}
+      banner?.classList.remove('show');
+    }
+    document.getElementById('cookieAccept')?.addEventListener('click', () => set('accept-all'));
+    document.getElementById('cookieDecline')?.addEventListener('click', () => set('essential-only'));
+  })();
+</script>
 
 <script>
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1165,69 +1272,50 @@
   }, { threshold: 0.3 });
   document.querySelectorAll('.tracker__col').forEach(el => meterIo.observe(el));
 
-  // === Waitlist form submit ===
-  // POSTs to /api/waitlist on the same origin (Cloudflare Pages Function).
-  const WAITLIST_ENDPOINT = '/api/waitlist';
-
+  // Form: client-side validate, then POST to /api/waitlist (Cloudflare Pages function → Loops)
   document.querySelectorAll('form.wl-form').forEach(form => {
-    const input = form.querySelector('input[name=email]');
-    const honeypot = form.querySelector('input[name=website]');
     const submitBtn = form.querySelector('button[type=submit]');
-    const err = form.parentElement.querySelector('.wl-error');
-    const suc = form.parentElement.querySelector('.wl-success');
-    const originalBtnHTML = submitBtn ? submitBtn.innerHTML : '';
-
-    function showError(msg) {
-      if (!err) return;
-      err.textContent = msg;
-      err.classList.remove('hidden');
-      suc && suc.classList.add('hidden');
-    }
-    function showSuccess() {
-      err && err.classList.add('hidden');
-      suc && suc.classList.remove('hidden');
-    }
-    function setLoading(on) {
-      if (!submitBtn) return;
-      submitBtn.disabled = on;
-      submitBtn.innerHTML = on
-        ? '<span>Reserving…</span>'
-        : (originalBtnHTML || '<span>Reserve</span>');
-    }
-
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      // Honeypot: any text in the hidden #website field = bot, silently succeed.
-      if (honeypot && honeypot.value) { showSuccess(); return; }
+      const emailEl = form.querySelector('input[name=email]');
+      const email = emailEl.value.trim();
+      const honey = form.querySelector('input[name=website]')?.value || '';
+      const err = form.parentElement.querySelector('.wl-error');
+      const suc = form.parentElement.querySelector('.wl-success');
+      const showErr = (msg) => {
+        if (err) { err.textContent = msg; err.classList.remove('hidden'); }
+        suc && suc.classList.add('hidden');
+      };
+      const showSuccess = () => {
+        err && err.classList.add('hidden');
+        suc && suc.classList.remove('hidden');
+      };
 
-      const email = (input?.value || '').trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        showError('Please enter a valid email.');
+        showErr('Please enter a valid email.');
         return;
       }
 
-      setLoading(true);
+      submitBtn && (submitBtn.disabled = true);
       try {
-        const res = await fetch(WAITLIST_ENDPOINT, {
+        const res = await fetch('/api/waitlist', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email,
-            source: form.dataset.form || 'redesign',
-            ts: new Date().toISOString(),
-          }),
+          body: JSON.stringify({ email, source: form.dataset.form || 'hero', website: honey }),
         });
-        if (!res.ok) {
-          let msg = 'Sign-up failed. Try again in a moment.';
-          try { const data = await res.json(); if (data && data.error) msg = data.error; } catch(_){}
-          throw new Error(msg);
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data?.ok) {
+          showSuccess();
+          form.reset();
+        } else if (res.status === 400) {
+          showErr(data?.error === 'Invalid email' ? 'Please enter a valid email.' : 'Something looked off — please try again.');
+        } else {
+          showErr('Could not save right now. Please try again shortly.');
         }
-        if (input) input.value = '';
-        showSuccess();
-      } catch (e2) {
-        showError((e2 && e2.message) || 'Sign-up failed. Try again in a moment.');
+      } catch {
+        showErr('Network hiccup — check your connection and try again.');
       } finally {
-        setLoading(false);
+        submitBtn && (submitBtn.disabled = false);
       }
     });
   });
