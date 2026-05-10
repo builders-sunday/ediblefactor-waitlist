@@ -37,7 +37,7 @@ export async function onRequestOptions({ request }) {
   return new Response(null, { status: 204, headers: corsHeaders(request.headers.get('origin')) });
 }
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost({ request, env, waitUntil }) {
   const cors = corsHeaders(request.headers.get('origin'));
 
   let body;
@@ -83,6 +83,40 @@ export async function onRequestPost({ request, env }) {
       }
     } else {
       console.log('[waitlist]', JSON.stringify(signup));
+    }
+
+    // Slack real-time signup feed (fire-and-forget; never block the response).
+    // Set SLACK_WEBHOOK_URL in the Cloudflare Pages env to enable.
+    if (env.SLACK_WEBHOOK_URL) {
+      const slackBody = {
+        text: `Waitlist signup: ${email}`,
+        blocks: [
+          {
+            type: 'section',
+            text: {
+              type: 'mrkdwn',
+              text: `:incoming_envelope: *Waitlist signup*\n\`${email}\``,
+            },
+          },
+          {
+            type: 'context',
+            elements: [
+              {
+                type: 'mrkdwn',
+                text: `source · \`${signup.source}\` · ip · \`${signup.ip}\` · ${signup.ts}`,
+              },
+            ],
+          },
+        ],
+      };
+      // ctx.waitUntil so the worker doesn't get killed before the POST flushes
+      // and the user response isn't blocked on Slack latency.
+      const slackPost = fetch(env.SLACK_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(slackBody),
+      }).catch((e) => console.error('[waitlist] slack post failed:', e));
+      if (typeof waitUntil === 'function') waitUntil(slackPost);
     }
 
     /* ─── Alternate backends (uncomment one) ──────────────────────────────────
