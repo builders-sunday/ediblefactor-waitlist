@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#07070b">
+<title>edible·factor · Legal</title>
+<meta name="description" content="Privacy, terms, cookies, and dietary disclaimer for edible·factor.">
+<meta name="robots" content="index, follow">
+
+<!--
+  FE-09 · v1 boilerplate. THIS IS A TEMPLATE. Have a lawyer review before
+  shipping to production, especially for: India DPDP Act 2023 compliance,
+  GDPR (any EU traffic), CCPA (California), and FSSAI for the dietary
+  disclaimer. Replace the <REVIEW> markers with reviewed content.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:#07070b; --bg-2:#0c0c12;
+    --ink:#eceaf3; --ink-dim:#9693ac; --ink-low:#6b6885;
+    --periwinkle:#a8aaff;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+  }
+  ::selection { background: var(--periwinkle); color: var(--bg); }
+  a { color: var(--periwinkle); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .display { font-family: 'Instrument Serif', serif; font-weight: 400; line-height: 1; letter-spacing: -0.015em; }
+  .accent  { font-style: italic; color: var(--periwinkle); }
+  .mono    { font-family: 'JetBrains Mono', monospace; }
+
+  header.appbar {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(7,7,11,0.85); backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(168,170,255,0.06);
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Instrument Serif', serif; font-size: 22px; }
+  .brand em { font-style: italic; color: var(--periwinkle); }
+  .nav-back {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .nav-back:hover { color: var(--ink); }
+
+  main { max-width: 760px; margin: 0 auto; padding: 36px 24px 80px; }
+
+  .page-title { font-size: clamp(48px, 8vw, 72px); margin: 0 0 24px; }
+  .updated {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-low); margin-bottom: 36px;
+    padding-bottom: 20px; border-bottom: 1px solid rgba(168,170,255,0.10);
+  }
+
+  .toc {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 40px;
+    padding: 16px;
+    border-radius: 14px;
+    background: rgba(168,170,255,0.04);
+    border: 1px solid rgba(168,170,255,0.10);
+  }
+  .toc a {
+    padding: 7px 14px;
+    border-radius: 9999px;
+    background: rgba(168,170,255,0.06);
+    border: 1px solid rgba(168,170,255,0.12);
+    color: var(--periwinkle);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .toc a:hover { background: rgba(168,170,255,0.14); text-decoration: none; }
+
+  section.legal {
+    margin-bottom: 56px;
+    scroll-margin-top: 80px;
+  }
+  section.legal h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px; line-height: 1.05;
+    margin: 0 0 18px;
+  }
+  section.legal h2 em { font-style: italic; color: var(--periwinkle); }
+  section.legal h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.20em; text-transform: uppercase;
+    color: var(--periwinkle);
+    margin: 28px 0 10px;
+  }
+  section.legal p, section.legal li {
+    color: var(--ink-dim);
+    line-height: 1.65; margin: 10px 0;
+  }
+  section.legal ul { padding-left: 20px; }
+  section.legal strong { color: var(--ink); font-weight: 500; }
+
+  .review-flag {
+    display: inline-block;
+    padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,138,74,0.10);
+    border: 1px solid rgba(255,138,74,0.30);
+    color: #ff8a4a;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+
+  .disclaimer-box {
+    padding: 20px 22px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(255,138,74,0.10), rgba(255,138,74,0.02));
+    border: 1px solid rgba(255,138,74,0.25);
+    margin: 18px 0;
+  }
+  .disclaimer-box p { color: var(--ink); font-style: italic; font-family: 'Instrument Serif', serif; font-size: 18px; line-height: 1.5; }
+
+  footer {
+    border-top: 1px solid rgba(168,170,255,0.06);
+    padding: 24px;
+    text-align: center;
+    color: var(--ink-low);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+</style>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2307070b'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='serif' font-size='20' font-style='italic' fill='%23a8aaff'%3Eef%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self';">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+</head>
+
+<body>
+
+<header class="appbar">
+  <a href="/" class="brand">edible<em>factor</em></a>
+  <a href="/" class="nav-back">← Back to home</a>
+</header>
+
+<main>
+
+  <h1 class="page-title display">Legal &amp; <span class="accent">disclaimers.</span></h1>
+  <div class="updated">Last updated · 2026-05-06 · <span class="review-flag">v1 template</span> awaiting counsel review</div>
+
+  <nav class="toc" aria-label="Table of contents">
+    <a href="#privacy">Privacy</a>
+    <a href="#terms">Terms of Service</a>
+    <a href="#cookies">Cookies</a>
+    <a href="#disclaimer">Dietary Disclaimer</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- ========================================================== -->
+  <section class="legal" id="privacy">
+    <h2>Privacy <em>policy.</em></h2>
+    <p>edible·factor (&ldquo;we&rdquo;, &ldquo;us&rdquo;) takes your data seriously. This policy explains what we collect, why, and your rights under India&apos;s Digital Personal Data Protection Act 2023 and GDPR (where applicable).</p>
+
+    <h3>What we collect</h3>
+    <ul>
+      <li><strong>Account data.</strong> Email address, name (if provided), magic-link tokens.</li>
+      <li><strong>Usage data.</strong> Dishes added to your plate, daily targets, dietary preferences, and visit timestamps.</li>
+      <li><strong>Device data.</strong> Browser type, screen size, network speed (used to enable Lite mode).</li>
+      <li><strong>Location data.</strong> Approximate area only (Indiranagar, HSR Layout, etc.) for restaurant filtering. We do not store precise GPS coordinates.</li>
+    </ul>
+
+    <h3>What we do not collect</h3>
+    <ul>
+      <li>We do not collect or process payment data ourselves; that goes through our payment provider.</li>
+      <li>We do not collect medical records or diagnoses.</li>
+      <li>We do not sell your personal data to third parties.</li>
+    </ul>
+
+    <h3>How we use it</h3>
+    <ul>
+      <li>To recommend dishes that fit your stated calorie and budget targets.</li>
+      <li>To remember your plate between sessions.</li>
+      <li>To improve the product through aggregated, anonymized usage analytics.</li>
+    </ul>
+
+    <h3>Your rights</h3>
+    <ul>
+      <li>Request access to all data we hold about you.</li>
+      <li>Request correction or deletion of your account at any time.</li>
+      <li>Withdraw consent for analytics by toggling cookies in <a href="#cookies">Cookies</a>.</li>
+      <li>Lodge a complaint with the relevant data protection authority.</li>
+    </ul>
+
+    <p>Email <a href="mailto:privacy@ediblefactor.com">privacy@ediblefactor.com</a> for any data request. We respond within 30 days as required by law. <span class="review-flag">REVIEW</span> add Data Protection Officer contact once appointed.</p>
+  </section>
+
+  <!-- ========================================================== -->
+  <section class="legal" id="terms">
+    <h2>Terms of <em>service.</em></h2>
+    <p>By using edible·factor, you agree to these terms. If you do not agree, do not use the service.</p>
+
+    <h3>The service</h3>
+    <p>edible·factor helps you browse partner restaurant menus in Bengaluru with calorie and budget tracking. We do not own the restaurants or prepare the food. Menu data, prices, and availability are provided by partners and may change without notice.</p>
+
+    <h3>Your account</h3>
+    <ul>
+      <li>You are responsible for keeping your magic-link emails secure.</li>
+      <li>One account per person. Sharing is not permitted.</li>
+      <li>You must be at least 18 to place orders.</li>
+    </ul>
+
+    <h3>Orders &amp; payments</h3>
+    <ul>
+      <li>Orders are contracts between you and the restaurant; we facilitate the connection.</li>
+      <li>Prices include taxes unless otherwise stated. Delivery fees shown at checkout.</li>
+      <li>Cancellation, refund, and dispute policies follow the partner restaurant&apos;s terms; we mediate where possible.</li>
+    </ul>
+
+    <h3>Acceptable use</h3>
+    <p>You agree not to: scrape data, attempt unauthorized access, impersonate others, or use the service for unlawful purposes.</p>
+
+    <h3>Liability</h3>
+    <p><span class="review-flag">REVIEW</span> Standard limitation-of-liability clauses go here once counsel reviews. Calorie and macro data are estimates and not medical advice (see <a href="#disclaimer">Dietary Disclaimer</a>).</p>
+
+    <h3>Changes</h3>
+    <p>We may update these terms. Material changes will be emailed to active users at least 14 days before they take effect.</p>
+  </section>
+
+  <!-- ========================================================== -->
+  <section class="legal" id="cookies">
+    <h2>Cookie <em>policy.</em></h2>
+    <p>We use the smallest set of cookies that lets the product work. Most data is stored in your browser&apos;s <code>localStorage</code>, not server cookies.</p>
+
+    <h3>What we use</h3>
+    <ul>
+      <li><strong>Essential.</strong> Session token after sign-in. Cannot be disabled if you want to stay signed in.</li>
+      <li><strong>Functional.</strong> Your plate, daily targets, and Lite-mode preference, all in <code>localStorage</code>. Cleared when you sign out or clear browser data.</li>
+      <li><strong>Analytics.</strong> Aggregated usage events via Plausible (no cross-site tracking, no fingerprinting). Opt out below.</li>
+    </ul>
+
+    <h3>Manage your choices</h3>
+    <p>You can clear cookies and <code>localStorage</code> at any time via your browser&apos;s settings. To opt out of analytics specifically, set the <em>Analytics</em> toggle in your account settings (post sign-in) or decline at the cookie banner.</p>
+
+    <p><span class="review-flag">REVIEW</span> embed actual Plausible opt-out instructions and DPDP-compliant consent UI.</p>
+  </section>
+
+  <!-- ========================================================== -->
+  <section class="legal" id="disclaimer">
+    <h2>Dietary <em>disclaimer.</em></h2>
+
+    <div class="disclaimer-box">
+      <p>Calorie and macro estimates shown in edible·factor are for informational purposes only. They are not medical or nutritional advice. Always consult a qualified healthcare professional or registered dietitian before making dietary decisions, especially if you have a medical condition, are pregnant, or are managing weight, blood sugar, or cholesterol.</p>
+    </div>
+
+    <h3>How we estimate</h3>
+    <p>Nutrition values come from one of three sources, surfaced per dish:</p>
+    <ul>
+      <li><strong>Restaurant-provided</strong> values, where the partner has lab-tested or verified.</li>
+      <li><strong>USDA FoodData Central</strong> reference values for component ingredients.</li>
+      <li><strong>Estimated</strong> values from typical preparation methods. These can vary by ±15% from actual servings.</li>
+    </ul>
+
+    <h3>Allergens</h3>
+    <p>We do not currently surface allergen flags. <span class="review-flag">REVIEW</span> add allergen warnings before launch in any market with allergen-disclosure regulations. Always confirm with the restaurant if you have a serious allergy.</p>
+
+    <h3>Not for medical use</h3>
+    <p>edible·factor is not a medical device and is not intended to diagnose, treat, cure, or prevent any disease. Any reference to &ldquo;protein gap&rdquo;, &ldquo;calorie cap&rdquo;, or similar terms is informational, not diagnostic.</p>
+  </section>
+
+  <!-- ========================================================== -->
+  <section class="legal" id="contact">
+    <h2>Contact <em>us.</em></h2>
+    <ul>
+      <li>General &mdash; <a href="mailto:hello@ediblefactor.com">hello@ediblefactor.com</a></li>
+      <li>Privacy / data requests &mdash; <a href="mailto:privacy@ediblefactor.com">privacy@ediblefactor.com</a></li>
+      <li>Partner restaurant inquiries &mdash; <a href="mailto:partners@ediblefactor.com">partners@ediblefactor.com</a></li>
+      <li>Bengaluru, India</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 edible<em style="font-style:italic;color:var(--periwinkle);">factor</em> · Made in Bengaluru ·
+  <a href="/" style="color:var(--ink-dim);">Home</a>
+</footer>
+
+</body>
+</html>
