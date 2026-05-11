@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07070b">
 <title>edible·factor · You are HOW you eat</title>
 <meta name="description" content="The only app that tracks your calories and your budget at the same time. Private beta · Bengaluru → Global.">
 
@@ -371,8 +372,11 @@
   .metric-card:hover { border-color: rgba(168,170,255,0.30); transform: translateY(-2px); }
 
   /* === Sticky CTA pill (appears after hero) === */
+  /* z-index: 80 keeps the pill above the cookie banner (z-index: 70) — on
+     a first-visit mobile session the banner is full-width and would
+     otherwise sit on top of the "Reserve My Seat →" CTA. */
   .sticky-cta {
-    position: fixed; bottom: 24px; right: 24px; z-index: 60;
+    position: fixed; bottom: 24px; right: 24px; z-index: 80;
     opacity: 0; pointer-events: none; transform: translateY(8px);
     transition: opacity .25s ease, transform .25s ease;
   }
@@ -621,7 +625,7 @@
             Skip the problem.
             <span class="block accent">Join the waitlist.</span>
           </h2>
-          <form class="wl-form" data-form="hero" novalidate>
+          <form class="wl-form" data-form="hero" action="/api/waitlist" method="POST" novalidate>
             <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none">
             <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" autocomplete="email">
             <button type="submit">
@@ -812,19 +816,19 @@
           <article class="deck__card" data-card="1" data-pos="1">
             <div class="deck__notch"></div>
             <div class="deck__screen">
-              <img src="/mockups/restaurants-browse.webp" alt="Restaurants browse" loading="eager">
+              <img src="/mockups/restaurants-browse.webp" alt="Restaurants browse" loading="lazy">
             </div>
           </article>
           <article class="deck__card" data-card="2" data-pos="2">
             <div class="deck__notch"></div>
             <div class="deck__screen">
-              <img src="/mockups/ai-sommelier.webp" alt="AI Sommelier" loading="eager">
+              <img src="/mockups/ai-sommelier.webp" alt="AI Sommelier" loading="lazy">
             </div>
           </article>
           <article class="deck__card" data-card="3" data-pos="3">
             <div class="deck__notch"></div>
             <div class="deck__screen">
-              <img src="/mockups/calorie-trend.webp" alt="Calorie trend and macro split" loading="eager">
+              <img src="/mockups/calorie-trend.webp" alt="Calorie trend and macro split" loading="lazy">
             </div>
           </article>
         </div>
@@ -990,14 +994,13 @@
 <!-- FE-09 · Cookie consent banner -->
 <!-- moved to head -->
 <aside class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie preferences">
-  <div class="cookie-banner__title">Cookies + analytics</div>
+  <div class="cookie-banner__title">Cookies</div>
   <p class="cookie-banner__body">
-    We use essential cookies to make the site work and lightweight analytics (Plausible · no cross-site tracking).
-    <a href="legal.html#cookies">Learn more</a>.
+    We use only strictly-necessary cookies — to remember if you've already
+    joined the waitlist. No analytics, no cross-site tracking. <a href="legal.html#cookies">Learn more</a>.
   </p>
   <div class="cookie-banner__actions">
-    <button type="button" class="cookie-banner__btn cookie-banner__btn--decline" id="cookieDecline">Essential only</button>
-    <button type="button" class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept">Accept all</button>
+    <button type="button" class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept" style="grid-column: 1 / -1;">Got it</button>
   </div>
 </aside>
 <script>
@@ -1012,8 +1015,7 @@
       try { localStorage.setItem(KEY, JSON.stringify({ value, at: new Date().toISOString() })); } catch (e) {}
       banner?.classList.remove('show');
     }
-    document.getElementById('cookieAccept')?.addEventListener('click', () => set('accept-all'));
-    document.getElementById('cookieDecline')?.addEventListener('click', () => set('essential-only'));
+    document.getElementById('cookieAccept')?.addEventListener('click', () => set('essential-only'));
   })();
 </script>
 
