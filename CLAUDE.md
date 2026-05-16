@@ -1,5 +1,7 @@
 # CLAUDE.md
 
+> **Deployment & runtime:** This is the apex waitlist site at `ediblefactor.com`, hosted on **Cloudflare Pages** (project `edible-factor-waitlist`). Auto-deploys from `main` via Pages' Git integration. The rest of the fleet (plate, web, backend) lives elsewhere — backend runs on Abhi's laptop via Cloudflare Tunnel, not in the cloud. Vercel and Supabase have been removed. Full details: [`ARCHITECTURE.md`](./ARCHITECTURE.md).
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What this is
